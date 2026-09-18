@@ -1,0 +1,45 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string pesan;
+    string hasil = "";
+
+    // Input pesan
+    cin >> pesan;
+
+    int n = pesan.length();
+
+    // Huruf pertama tidak berubah
+    hasil += pesan[0];
+
+    // Proses huruf berikutnya
+    for (int i = 1; i < n; i++) {
+
+        // Konversi huruf sebelumnya menjadi angka
+        int nilaiSebelumnya = pesan[i - 1] - 'A' + 1;
+
+        // Konversi huruf saat ini menjadi angka
+        int nilaiSekarang = pesan[i] - 'A' + 1;
+
+        // Jumlahkan nilai huruf saat ini dengan sebelumnya
+        int nilaiHasil = nilaiSebelumnya + nilaiSekarang;
+
+        // Jika lebih dari 26, kembali ke awal alfabet
+        if (nilaiHasil > 26) {
+            nilaiHasil = nilaiHasil - 26;
+        }
+
+        // Konversi angka kembali menjadi huruf
+        char hurufHasil = 'A' + nilaiHasil - 1;
+
+        // Simpan ke hasil enkripsi
+        hasil += hurufHasil;
+    }
+
+    // Output hasil enkripsi
+    cout << hasil << endl;
+
+    return 0;
+}
