@@ -1,0 +1,72 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int N, K;
+
+    // Input
+    cout << "Masukkan N: ";
+    cin >> N;
+
+    cout << "Masukkan K: ";
+    cin >> K;
+
+    // Membuat daftar astronot 1 sampai N
+    vector<int> astronaut;
+
+    for (int i = 1; i <= N; i++) {
+        astronaut.push_back(i);
+    }
+
+    int pos = 0;
+    vector<int> urutanEliminasi;
+
+    // Proses eliminasi
+    while (astronaut.size() > 1) {
+
+        // Menentukan posisi astronot yang dieliminasi
+        pos = (pos + K - 1) % astronaut.size();
+
+        // Menyimpan nomor astronot
+        int korban = astronaut[pos];
+        urutanEliminasi.push_back(korban);
+
+        // Menghapus astronot
+        astronaut.erase(astronaut.begin() + pos);
+
+        // Mengubah nilai K
+        if (korban % 2 == 0) {
+            K = K + 2;
+        } else {
+            K = K - 1;
+        }
+
+        // K minimal 2
+        if (K < 2) {
+            K = 2;
+        }
+
+        // Jika posisi sudah melewati akhir,
+        // kembali ke awal lingkaran
+        if (pos == astronaut.size()) {
+            pos = 0;
+        }
+    }
+
+    // Output urutan eliminasi
+    cout << "\nUrutan eliminasi: ";
+
+    for (int i = 0; i < urutanEliminasi.size(); i++) {
+        cout << urutanEliminasi[i];
+
+        if (i < urutanEliminasi.size() - 1) {
+            cout << " -> ";
+        }
+    }
+
+    // Output astronot terakhir
+    cout << "\nAstronot terakhir: " << astronaut[0] << endl;
+
+    return 0;
+}
